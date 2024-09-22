@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BookController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +18,10 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::apiResource('books', BookController::class);
+
+Route::put('books/restore/{id}', [BookController::class, 'restore'])->name('books.restore');
+Route::get('books/trashed', [BookController::class, 'showTrashed'])->name('books.trashed');
+Route::delete('books/forceDelete/{id}', [BookController::class, 'forceDelete'])->name('books.forceDelete');
