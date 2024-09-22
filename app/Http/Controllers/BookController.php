@@ -39,6 +39,15 @@ class BookController extends Controller
      ], 200); // OK
     }
 
+    public function show(string $id)
+    {
+        $book = $this->BookService->show($id);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Book retrived successfully',
+            'book' => BookResource::make($book),
+        ], 200);
+    }
     /**
      * Store a newly created resource in storage.
      * @throws \Exception
@@ -92,11 +101,13 @@ class BookController extends Controller
             'status' => 'success',
             'message' => 'Trashed Books retrieved successfully',
             'books' => [
-                'info' => BookResource::collection($trashedBooks['data']),
-                'current_page' => $trashedBooks['current_page'],
-                'last_page' => $trashedBooks['last_page'],
-                'per_page' => $trashedBooks['per_page'],
-                'total' => $trashedBooks['total'],
+                'books' => [
+            'info' => BookResource::collection($trashedBooks->items()), 
+            'current_page' => $trashedBooks->currentPage(),
+            'last_page' => $trashedBooks->lastPage(),
+            'per_page' => $trashedBooks->perPage(),
+            'total' => $trashedBooks->total(),
+        ],
             ],
         ], 200); // OK
     }

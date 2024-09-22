@@ -38,7 +38,7 @@ class BookServiceRequest extends FormRequest
             // Allow optional fields for update request
             $rules['title'][] = 'sometimes';
             $rules['author'][] = 'sometimes';
-            $rules['published_at'][] = 'sometimes';
+            $rules['published_at'][] = 'nullable';
             $rules['is_active'][] = 'sometimes';
         }
 
@@ -81,7 +81,7 @@ class BookServiceRequest extends FormRequest
         $this->merge([
             'title' => ucwords(strtolower($this->input('title'))),
             'author' => ucwords(strtolower($this->input('author'))),
-            'is_active' => $this->input('is_active') === 'نشط' ? 1 : ($this->input('is_active') === 'غير نشط' ? 0 : $this->input('is_active')),
+            'is_active' => $this->input('is_active') === 'active' ? 1 : ($this->input('is_active') === 'not active' ? 0 : $this->input('is_active')),
         ]);
     }
 

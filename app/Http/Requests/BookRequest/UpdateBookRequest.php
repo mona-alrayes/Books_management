@@ -2,9 +2,7 @@
 
 namespace App\Http\Requests\BookRequest;
 
-use Illuminate\Foundation\Http\FormRequest;
-
-class UpdateBookRequest extends FormRequest
+class UpdateBookRequest extends BookServiceRequest
 {
     /**
      * Get the validation rules that apply to the request.

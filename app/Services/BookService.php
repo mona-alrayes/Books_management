@@ -144,7 +144,9 @@ class BookService
     public function showDeleted(): \Illuminate\Contracts\Pagination\LengthAwarePaginator
     {
         try {
-            return Book::onlyTrashed()->paginate(5);
+            $books= Book::onlyTrashed()->paginate(5);
+            // dd($books);
+            return $books;
         } catch (Exception $e){
             throw new Exception('Failed to retrieve trashed book: ' . $e->getMessage());
         }
@@ -156,7 +158,7 @@ class BookService
     public function restoreDeleted(string $id):Book
     {
         try {
-            $book = Book::findOrFail($id);
+            $book = Book::onlyTrashed()->where('id', $id)->firstOrFail();
             $book->restore();
             return $book;
         }catch (ModelNotFoundException $e) {
@@ -172,7 +174,7 @@ class BookService
     public function ForceDelete(string $id):string
     {
         try{
-            $book = Book::findOrFail($id);
+            $book = Book::onlyTrashed()->where('id', $id)->firstOrFail();
             $book->forceDelete();
             return "Book deleted Forever from database successfully.";
         }catch (ModelNotFoundException $e) {

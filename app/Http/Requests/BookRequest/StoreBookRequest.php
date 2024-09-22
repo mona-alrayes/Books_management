@@ -1,10 +1,9 @@
 <?php
 
 namespace App\Http\Requests\BookRequest;
-use Illuminate\Foundation\Http\FormRequest;
 
 
-class StoreBookRequest extends FormRequest
+class StoreBookRequest extends BookServiceRequest
 {
     /**
      * Additional or overridden rules for storing a book.
