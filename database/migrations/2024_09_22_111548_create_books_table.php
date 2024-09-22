@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('title')->unique();
             $table->string('author');
-            $table->datetimes('published_at');
-            $table->boolean('is_active')->default('true');
+            $table->datetime('published_at');
+            $table->boolean('is_active')->default(true);
             $table->softDeletes();
             $table->timestamps();
         });
